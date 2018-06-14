@@ -1,0 +1,82 @@
+﻿@model TrashCollector2.Models.Pickup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pickup</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Worker.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Worker.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickupDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickupDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Charge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Charge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Complete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Complete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Suspended)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Suspended)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuspensionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuspensionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OneTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OneTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
