@@ -40,6 +40,7 @@ namespace TrashCollector2.Controllers
         // GET: Addresses/Create
         public ActionResult Create()
         {
+            
             ViewBag.CityID = new SelectList(db.Cities, "ID", "CityName");
             ViewBag.StateID = new SelectList(db.States, "ID", "StateName");
             return View();
@@ -54,6 +55,17 @@ namespace TrashCollector2.Controllers
         {
             if (ModelState.IsValid)
             {
+                string userID = User.Identity.GetUserId();
+                var customer = db.Customers.Where(c => c.UserID == userID).FirstOrDefault();
+                var worker = db.Workers.Where(w => w.UserID == userID).FirstOrDefault();
+                if (customer != null)
+                {
+                    customer.AddressID = address.ID;
+                }
+                else if (worker != null)
+                {
+                    worker.AddressID = address.ID;
+                }
                 address.UserId = User.Identity.GetUserId();
                 db.Addresses.Add(address);
                 db.SaveChanges();
