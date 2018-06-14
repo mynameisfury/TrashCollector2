@@ -15,6 +15,15 @@ namespace TrashCollector2.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult WorkerHome()
+        {
+            string userID = User.Identity.GetUserId();
+            var user = db.Users.Where(u => u.Id == userID).FirstOrDefault();
+            var worker = db.Workers.Where(c => c.UserID == user.Id).FirstOrDefault();
+            var pickups = db.Pickups.Where(p => p.Complete == false && p.Customer.Address.ZipCode == worker.Address.ZipCode && p.PickupDate == DateTime.Today);
+            return View(pickups.ToList());
+
+        }
         // GET: Workers
         public ActionResult Index()
         {
