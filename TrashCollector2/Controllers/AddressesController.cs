@@ -15,6 +15,13 @@ namespace TrashCollector2.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult CustomerAddresses()
+        {
+            string userID = User.Identity.GetUserId();
+            var customer = db.Customers.Where(c => c.UserID == userID).FirstOrDefault();
+            var addresses = db.Addresses.Where(a => a.UserId == customer.UserID);
+            return View(addresses.ToList());
+    }
         // GET: Addresses
         public ActionResult Index()
         {

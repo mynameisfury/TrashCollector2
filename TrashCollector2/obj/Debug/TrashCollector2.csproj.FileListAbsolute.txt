@@ -241,3 +241,6 @@ D:\mynameisfury\GitHub_Projects\TrashCollector2\TrashCollector2\obj\Debug\TrashC
 D:\mynameisfury\GitHub_Projects\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.csproj.CoreCompileInputs.cache
 D:\mynameisfury\GitHub_Projects\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.dll
 D:\mynameisfury\GitHub_Projects\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.pdb
+D:\mynameisfury\GitHub_Projects\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.Migrations.InitialCreate.resources
+D:\mynameisfury\GitHub_Projects\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.csproj.GenerateResource.Cache
+D:\mynameisfury\GitHub_Projects\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.Migrations.thing.resources
