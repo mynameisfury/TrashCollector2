@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,6 +14,14 @@ namespace TrashCollector2.Controllers
     public class PickupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActionResult CustomerPickups()
+        {
+            string userID = User.Identity.GetUserId();
+            var customer = db.Customers.Where(c => c.UserID == userID).FirstOrDefault();
+            var pickups = db.Pickups.Where(p => p.CustomerID == customer.ID);
+            return View(pickups.ToList());
+        }
 
         // GET: Pickups
         public ActionResult Index()
