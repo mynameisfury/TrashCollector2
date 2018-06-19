@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201806150549037_thing.Designer.cs">
       <DependentUpon>201806150549037_thing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806181953292_nullable ints.cs" />
+    <Compile Include="Migrations\201806181953292_nullable ints.Designer.cs">
+      <DependentUpon>201806181953292_nullable ints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -321,6 +325,7 @@
     <Content Include="Views\Addresses\CustomerAddresses.cshtml" />
     <Content Include="Views\Pickups\CustomerPickups.cshtml" />
     <Content Include="Views\Workers\WorkerHome.cshtml" />
+    <Content Include="Views\Pickups\CompletePickup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -344,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806150549037_thing.resx">
       <DependentUpon>201806150549037_thing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181953292_nullable ints.resx">
+      <DependentUpon>201806181953292_nullable ints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -11,35 +11,23 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Customer.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Worker.Username)
+            @Html.DisplayNameFor(model => model.Customer.LastName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PickupDate)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Charge)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.Complete)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Suspended)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SuspensionDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OneTime)
-        </th>
+       
         <th></th>
     </tr>
 
@@ -50,30 +38,19 @@
                 @Html.DisplayFor(modelItem => item.Customer.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Worker.Username)
+                @Html.DisplayFor(modelItem => item.Customer.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PickupDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Charge)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Complete)
             </td>
+            
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Suspended)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SuspensionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OneTime)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Details", "Details", "Pickups", new { id = item.ID }, null)
             </td>
         </tr>
     }

@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model TrashCollector2.Models.Pickup
+
+<h1>Pickup Completed</h1>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Customer.FirstName)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Customer.FirstName)
+</dd>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Customer.LastName)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Customer.LastName)
+</dd>
+<dt>
+    <p>Address:</p>
+</dt>
+<dd>
+    @Html.DisplayFor(model => model.Customer.Address.StreetAddressLine1)
+    @Html.DisplayFor(Model => Model.Customer.Address.StrettAddressLine2)
+    @Html.DisplayFor(Model => Model.Customer.Address.City.CityName)
+    @Html.DisplayFor(Model => Model.Customer.Address.State.StateName)
+    @Html.DisplayFor(Model => Model.Customer.Address.ZipCode)
+</dd>
+
+
+<dt>
+    @Html.DisplayNameFor(model => model.Complete)
+</dt>
+
+<dd>
+    @Html.DisplayFor(model => model.Complete)
+</dd>
+

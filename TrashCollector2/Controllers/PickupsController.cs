@@ -19,8 +19,50 @@ namespace TrashCollector2.Controllers
         {
             string userID = User.Identity.GetUserId();
             var customer = db.Customers.Where(c => c.UserID == userID).FirstOrDefault();
-            var pickups = db.Pickups.Where(p => p.CustomerID == customer.ID);
+            var pickups = db.Pickups.Where(p => p.CustomerID == customer.ID && p.Complete == false);
             return View(pickups.ToList());
+        }
+
+        public ActionResult CompletePickup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pickup pickup = db.Pickups.Find(id);
+            if (pickup == null)
+            {
+                return HttpNotFound();
+            }
+            pickup.Complete = true;
+            pickup.Customer.Balance += pickup.Charge;
+            var newpickup = new Pickup();
+            newpickup.CustomerID = pickup.CustomerID;
+            var OneWeek = new System.TimeSpan(7, 0, 0, 0);
+            newpickup.PickupDate = pickup.PickupDate.Add(OneWeek);
+            if (pickup.Suspended != false && pickup.OneTime == false)
+            {
+                db.Pickups.Add(newpickup);
+            }
+            db.SaveChanges();
+            return View(pickup);
+        }
+
+        public ActionResult SuspendPickup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pickup pickup = db.Pickups.Find(id);
+            if (pickup == null)
+            {
+                return HttpNotFound();
+            }
+            
+            pickup.PickupDate = pickup.SuspensionDate ?? pickup.PickupDate;
+            pickup.SuspensionDate = null;
+            return View(pickup);
         }
 
         // GET: Pickups
@@ -62,9 +104,13 @@ namespace TrashCollector2.Controllers
         {
             if (ModelState.IsValid)
             {
+                string userID = User.Identity.GetUserId();
+                var customer = db.Customers.Where(c => c.UserID == userID).FirstOrDefault();
+                pickup.CustomerID = customer.ID;
+                pickup.Charge = 5;
                 db.Pickups.Add(pickup);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CustomerPickups");
             }
 
             ViewBag.CustomerID = new SelectList(db.Customers, "ID", "FirstName", pickup.CustomerID);

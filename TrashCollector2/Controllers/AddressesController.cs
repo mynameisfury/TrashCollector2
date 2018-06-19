@@ -20,7 +20,11 @@ namespace TrashCollector2.Controllers
             string userID = User.Identity.GetUserId();
             var customer = db.Customers.Where(c => c.UserID == userID).FirstOrDefault();
             var addresses = db.Addresses.Where(a => a.UserId == customer.UserID);
-            return View(addresses.ToList());
+            if (customer.AddressID == null)
+            {
+                return RedirectToAction("Create");
+            }
+            else return View(addresses.ToList());
     }
         // GET: Addresses
         public ActionResult Index()

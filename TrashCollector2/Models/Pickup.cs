@@ -17,14 +17,14 @@ namespace TrashCollector2.Models
         [ForeignKey("CustomerID")]
         public virtual Customer Customer { get; set; }
 
-        public int WorkerID { get; set; }
+        public int? WorkerID { get; set; }
         [ForeignKey("WorkerID")]
         public virtual Worker Worker { get; set; }
 
         public int Charge { get; set; }
         public bool Complete { get; set; }
         public bool Suspended { get; set; }
-        public DateTime SuspensionDate { get; set; }
+        public DateTime? SuspensionDate { get; set; }
         public bool OneTime { get; set; }
     }
 }

@@ -10,21 +10,35 @@
     <h4>Pickup</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer.FirstName)
-        </dt>
+        @if (User.IsInRole("Worker"))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.FirstName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Customer.FirstName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.FirstName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Worker.Username)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer.LastName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Worker.Username)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.LastName)
+            </dd>
+            <dt>
+                <p>Address:</p>
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Customer.Address.StreetAddressLine1)
+                @Html.DisplayFor(Model => Model.Customer.Address.StrettAddressLine2)
+                @Html.DisplayFor(Model => Model.Customer.Address.City.CityName)
+                @Html.DisplayFor(Model => Model.Customer.Address.State.StateName)
+                @Html.DisplayFor(Model => Model.Customer.Address.ZipCode)
+            </dd>
+        }
+
 
         <dt>
             @Html.DisplayNameFor(model => model.PickupDate)
@@ -34,13 +48,6 @@
             @Html.DisplayFor(model => model.PickupDate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Charge)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Charge)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Complete)
@@ -50,21 +57,6 @@
             @Html.DisplayFor(model => model.Complete)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Suspended)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Suspended)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SuspensionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SuspensionDate)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.OneTime)
@@ -73,16 +65,33 @@
         <dd>
             @Html.DisplayFor(model => model.OneTime)
         </dd>
+        @if (User.IsInRole("Customer"))
+        {
+            <H3>
+                Suspend your pickups below, if you need to
+            </H3>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.SuspensionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SuspensionDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SuspensionDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.ActionLink("Suspend my pickup", "SuspendPickup")
+        }
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
 
 @if (User.IsInRole("Worker"))
 {
+
+    <p>@Html.ActionLink("Complete Pickup", "CompletePickup", new { id = Model.ID })</p>
     <div id="map"></div>
     <style>
         #map {
@@ -93,19 +102,56 @@
     </style>
     <body>
         <script>
-// Initialize and add the map
-function initMap() {
-  // The location of Uluru
-  var uluru = {lat: -25.344, lng: 131.036};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
-}
+            // Initialize and add the map
+            function initMap() {
+
+     
+
+                var geocoder = new google.maps.geocoder;
+                function codeAddress() {
+                    var address = @Html.DisplayFor(model => model.Customer.Address.StreetAddressLine1).ToString() +
+                    @Html.DisplayFor(Model => Model.Customer.Address.StrettAddressLine2).ToString() +
+                    @Html.DisplayFor(Model => Model.Customer.Address.City.CityName).ToString() +
+                    @Html.DisplayFor(Model => Model.Customer.Address.State.StateName).ToString() +
+                    @Html.DisplayFor(Model => Model.Customer.Address.ZipCode).ToString();
+                    geocoder.geocode({ 'address': address }, function (results, status) {
+                        if (status == 'OK') {
+                            map.setCenter(results[0].geometry.location);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                        } else {
+                            alert('Geocode was not successful for the following reason: ' + status);
+                        }
+                    });
+                }
+
+                // The location of Uluru
+                var uluru = { lat: -25.344, lng: 131.036 };
+
+
+
+
+                // The map, centered at Uluru
+                var map = new google.maps.Map(
+                    document.getElementById('map'), { zoom: 4, center: uluru });
+                // The marker, positioned at Uluru
+                var marker = new google.maps.Marker({ position: uluru, map: map });
+            }
         </script>
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALBFZuNCwF1ecDBWm5MOzl9C6WvxQMs6s&callback=initMap">
         </script>
     </body>
 }
+<p>
+    @if (User.IsInRole("Customer"))
+    {
+        @Html.ActionLink("Back to List", "CustomerPickups")
+    }
+    @if (User.IsInRole("Worker"))
+    {
+        @Html.ActionLink("Back to List", "WorkerHome", "Workers")
+    }
+</p>
