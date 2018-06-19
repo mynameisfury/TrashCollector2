@@ -62,7 +62,7 @@ namespace TrashCollector2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,StreetAddressLine1,StrettAddressLine2,CityID,StateID,ZipCode,UserId")] Address address)
+        public ActionResult Create([Bind(Include = "ID,StreetAddressLine1,StrettAddressLine2,CityID,StateID,ZipCode,UserId,Latitude,Longitude")] Address address)
         {
             if (ModelState.IsValid)
             {
@@ -110,7 +110,7 @@ namespace TrashCollector2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,StreetAddressLine1,StrettAddressLine2,CityID,StateID,ZipCode,UserId")] Address address)
+        public ActionResult Edit([Bind(Include = "ID,StreetAddressLine1,StrettAddressLine2,CityID,StateID,ZipCode,UserId,Latitude,Longitude")] Address address)
         {
             if (ModelState.IsValid)
             {

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -38,9 +39,10 @@ namespace TrashCollector2.Controllers
             pickup.Customer.Balance += pickup.Charge;
             var newpickup = new Pickup();
             newpickup.CustomerID = pickup.CustomerID;
+            newpickup.Customer = pickup.Customer;
             var OneWeek = new System.TimeSpan(7, 0, 0, 0);
             newpickup.PickupDate = pickup.PickupDate.Add(OneWeek);
-            if (pickup.Suspended != false && pickup.OneTime == false)
+            if (pickup.Suspended == false && pickup.OneTime == false)
             {
                 db.Pickups.Add(newpickup);
             }
@@ -63,6 +65,43 @@ namespace TrashCollector2.Controllers
             pickup.PickupDate = pickup.SuspensionDate ?? pickup.PickupDate;
             pickup.SuspensionDate = null;
             return View(pickup);
+        }
+        public ActionResult SearchPickups(string selectedDay)
+        {
+           
+            string userID = User.Identity.GetUserId();
+            var user = db.Users.Where(u => u.Id == userID).FirstOrDefault();
+            var worker = db.Workers.Where(c => c.UserID == user.Id).FirstOrDefault();
+             var pickups = db.Pickups.Where(p => p.Complete == false && p.Customer.Address.ZipCode == worker.Address.ZipCode);
+            switch (selectedDay)
+            {
+                case "monday":
+                    pickups = db.Pickups.ToList().Where(p => p.PickupDate.DayOfWeek.ToString().ToLower() == "monday").AsQueryable();
+                    break;
+                case "tuesday":
+                    pickups = pickups.ToList().Where(p => p.PickupDate.DayOfWeek.ToString().ToLower() == "tuesday").AsQueryable();
+                    break;
+                case "wednesday":
+                    pickups = pickups.ToList().Where(p => p.PickupDate.DayOfWeek.ToString().ToLower() == "wednesday").AsQueryable();
+                    break;
+                case "thursday":
+                    pickups = pickups.ToList().Where(p => p.PickupDate.DayOfWeek.ToString().ToLower() == "thursday").AsQueryable();
+                    break;
+                case "friday":
+                    pickups = pickups.ToList().Where(p => p.PickupDate.DayOfWeek.ToString().ToLower() == "friday").AsQueryable();
+                    break;
+                case "saturday":
+                    pickups = pickups.ToList().Where(p => p.PickupDate.DayOfWeek.ToString().ToLower() == "saturday").AsQueryable();
+                    break;
+                case "sunday":
+                    pickups = pickups.ToList().Where(p => p.PickupDate.DayOfWeek.ToString().ToLower() == "sunday").AsQueryable();
+                    break;
+                default:
+                    pickups = pickups.Where(p => p.PickupDate == DateTime.Now);
+                    break;
+            }
+
+            return View(pickups.ToList());
         }
 
         // GET: Pickups

@@ -248,3 +248,4 @@ C:\Users\mynameisfury\Documents\Desktop\DevCodeCamp\Projects\C#\Exercises\TrashC
 C:\Users\mynameisfury\Documents\Desktop\DevCodeCamp\Projects\C#\Exercises\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.Migrations.thing.resources
 C:\Users\mynameisfury\Documents\Desktop\DevCodeCamp\Projects\C#\Exercises\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.csproj.GenerateResource.cache
 C:\Users\mynameisfury\Documents\Desktop\DevCodeCamp\Projects\C#\Exercises\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.Migrations.nullableints.resources
+C:\Users\mynameisfury\Documents\Desktop\DevCodeCamp\Projects\C#\Exercises\TrashCollector2\TrashCollector2\obj\Debug\TrashCollector2.Migrations.latandlongadded.resources

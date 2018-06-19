@@ -101,20 +101,21 @@
         }
     </style>
     <body>
+
         <script>
-            // Initialize and add the map
-            function initMap() {
 
-     
 
-                var geocoder = new google.maps.geocoder;
-                function codeAddress() {
-                    var address = @Html.DisplayFor(model => model.Customer.Address.StreetAddressLine1).ToString() +
-                    @Html.DisplayFor(Model => Model.Customer.Address.StrettAddressLine2).ToString() +
-                    @Html.DisplayFor(Model => Model.Customer.Address.City.CityName).ToString() +
-                    @Html.DisplayFor(Model => Model.Customer.Address.State.StateName).ToString() +
-                    @Html.DisplayFor(Model => Model.Customer.Address.ZipCode).ToString();
-                    geocoder.geocode({ 'address': address }, function (results, status) {
+            @*function codeAddress() {
+                console.log("Hello world")
+                var address = "313 N Plankinton Ave, Milwaukee, Wi, 53203";
+                        @(Model.Customer.Address.StreetAddressLine1)+
+                    @(Model.Customer.Address.StrettAddressLine2) +
+                    @(Model.Customer.Address.City.CityName) +
+                    @(Model.Customer.Address.State.StateName) +
+                    @(Model.Customer.Address.ZipCode);
+                    console.log(address);
+                var geocoder = new google.maps.Geocoder("313 N Plankinton Ave, Milwaukee, Wi, 53203");
+                var result = geocoder.geocode({ 'address': "313 N Plankinton Ave, Milwaukee, Wi, 53203" }, function (results, status) {
                         if (status == 'OK') {
                             map.setCenter(results[0].geometry.location);
                             var marker = new google.maps.Marker({
@@ -125,20 +126,20 @@
                             alert('Geocode was not successful for the following reason: ' + status);
                         }
                     });
-                }
+                    console.log(result)
+                }*@
 
+            // Initialize and add the map
+            function initMap() {
                 // The location of Uluru
-                var uluru = { lat: -25.344, lng: 131.036 };
-
-
-
-
+                var address = { lat: @Model.Customer.Address.Latitude, lng: @Model.Customer.Address.Longitude };
                 // The map, centered at Uluru
                 var map = new google.maps.Map(
-                    document.getElementById('map'), { zoom: 4, center: uluru });
+                    document.getElementById('map'), { zoom: 4, center: address });
                 // The marker, positioned at Uluru
-                var marker = new google.maps.Marker({ position: uluru, map: map });
+                var marker = new google.maps.Marker({ position: address, map: map });
             }
+            codeAddress();
         </script>
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALBFZuNCwF1ecDBWm5MOzl9C6WvxQMs6s&callback=initMap">

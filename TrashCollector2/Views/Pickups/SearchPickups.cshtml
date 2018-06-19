@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<TrashCollector2.Models.Pickup>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Sort by Day</h2>
+@Html.ActionLink("Monday", "SearchPickups", new { selectedDay = "monday" })
+@Html.ActionLink("Tuesday", "SearchPickups", new { selectedDay = "tuesday" })
+@Html.ActionLink("Wednesday", "SearchPickups", new { selectedDay = "wednesday" })
+@Html.ActionLink("Thursday", "SearchPickups", new { selectedDay = "thursday" })
+@Html.ActionLink("Friday", "SearchPickups", new { selectedDay = "friday" })
+@Html.ActionLink("Saturday", "SearchPickups", new { selectedDay = "saturday" })
+@Html.ActionLink("Sunday", "SearchPickups", new { selectedDay = "sunday" })
+
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PickupDate)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Complete)
+        </th>
+
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickupDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Complete)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Details", "Details", "Pickups", new { id = item.ID }, null)
+            </td>
+        </tr>
+    }
+</table>

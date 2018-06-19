@@ -1,8 +1,12 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@model TrashCollector2.Models.Customer
+
+
 <div class="jumbotron">
-    <h1>XANDER</h1><br />
+    <h1>Trash Collector</h1><br />
     <p class="lead"></p>
     <div class="row">
         <div class="col-md-4">
@@ -14,6 +18,10 @@
             <h2>Manage pickups</h2>
             <p>Add or suspend pickups.</p>
             <p><a class="btn btn-default" href="http://localhost:54436/Pickups/CustomerPickups">Pickups &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Current Balance</h2>
+            <p>@Html.DisplayFor(model => model.Balance)</p>
         </div>
     </div>
 </div>

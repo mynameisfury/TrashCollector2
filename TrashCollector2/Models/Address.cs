@@ -26,5 +26,7 @@ namespace TrashCollector2.Models
 
         public int ZipCode { get; set; }
         public string UserId { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

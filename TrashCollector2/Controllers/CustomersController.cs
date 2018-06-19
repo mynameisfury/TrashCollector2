@@ -17,7 +17,9 @@ namespace TrashCollector2.Controllers
 
         public ActionResult CustomerHome()
         {
-            return View();
+            var userID = User.Identity.GetUserId();
+            Customer customer = db.Customers.Where(c => c.UserID == userID).FirstOrDefault();
+            return View(customer);
         }
         // GET: Customers
         public ActionResult Index()
@@ -58,6 +60,7 @@ namespace TrashCollector2.Controllers
             if (ModelState.IsValid)
             {
                 customer.UserID = User.Identity.GetUserId();
+                customer.Balance = 0;
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
